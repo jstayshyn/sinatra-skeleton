@@ -7,6 +7,24 @@ get '/users/new' do
   erb :"users/new"
 end
 
+post '/users' do
+  # create a new user with the data (in params) that was posted to us
+  xuser = User.create(params)
+
+  #(logging in) when we have a new user, create a session for them
+  session[:user_id] = xuser.id
+
+  # redirect user to their profile page
+  redirect '/profile'
+end
+
+get '/profile' do
+  # find the user using the user_id we save in the session
+  @user = User.find(session[:user_id])
+  erb :profile
+end
+
+
 get '/login' do
   erb :login
 end
