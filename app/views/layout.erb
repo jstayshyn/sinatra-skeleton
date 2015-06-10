@@ -18,6 +18,21 @@
   <title></title>
 </head>
 <body>
+
+<div class="container">
+  <ul class="nav nav-pills">
+    <li><a href="/">Home</a></li>
+    <li><a href="/movies">Movies</a></li> 
+    <% if logged_in? %>
+      <li><a href="/profile">Profile</a></li>
+      <li><a href="/logout">Logout</a></li>
+    <% else %>
+      <li><a href="/login">Login</a></li>
+      <li><a href="/users/new">Sign Up</a></li>
+    <% end %>
+  </ul>
+</div>
+
   <%= yield %>
 </body>
 </html>

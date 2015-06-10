@@ -1,3 +1,20 @@
+helpers do
+ 
+  def logged_in?
+    !current_user.nil?
+  end
+ 
+  def current_user
+    if session[:user_id]
+      User.find session[:user_id]
+    else
+      nil
+    end
+  end
+ 
+end
+
+
 # Homepage (Root path)
 get '/' do
   erb :index
@@ -21,7 +38,7 @@ end
 get '/profile' do
   # find the user using the user_id we save in the session
   @user = User.find(session[:user_id])
-  erb :profile
+  erb :"users/profile"
 end
 
 
@@ -44,9 +61,17 @@ post '/login' do
   end
 end
 
+get '/logout' do
+  session.clear
+  redirect '/'
+end
 
 get 'movies' do
   erb :movie
+end
+
+get '/movies/new/' do
+  erb :"movies/new"
 end
 
 
